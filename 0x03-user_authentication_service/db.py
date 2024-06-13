@@ -56,6 +56,9 @@ class DB:
            - kwargs: keyword argument
         Return:
            The first row found in the users table as filtered
+        Raises:
+           NoResultFound: If no rows match the query
+           InvalidRequestError: If there's an issue with the query
         """
         try:
             session = self._session
@@ -63,7 +66,5 @@ class DB:
             if user is None:
                 raise NoResultFound
             return user
-        except NoResultFound:
-            raise
         except InvalidRequestError:
             raise
