@@ -14,7 +14,8 @@ from user import Base
 
 
 class DB:
-    """DB class
+    """
+    DB class
     """
 
     def __init__(self) -> None:
@@ -36,17 +37,18 @@ class DB:
 
     def add_user(self, email: str, hashed_password: str) -> User:
         """
-        Create a User object and save it to the database
+        Create a user object and save it to the database
         Args:
-            email (str): user's email address
-            hashed_password (str): password hashed by bcrypt's hashpw
+           - email(str): user's email address
+           - hashed_password(str): user's password
         Return:
-            Newly created User object
+           created user object
         """
-        user = User(email=email, hashed_password=hashed_password)
-        self._session.add(user)
-        self._session.commit()
-        return user
+        new_user = User(email=email, hashed_password=hashed_password)
+        session = self._session
+        session.add(new_user)
+        session.commit()
+        return new_user
 
     def find_user_by(self, **kwargs):
         """
