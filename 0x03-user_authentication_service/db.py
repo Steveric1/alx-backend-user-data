@@ -36,17 +36,17 @@ class DB:
 
     def add_user(self, email: str, hashed_password: str) -> User:
         """
-        Create a user object and save it to the database
+        Create a User object and save it to the database
         Args:
-           - email(str): user's email address
-           - hashed_password(str): user's password
+            email (str): user's email address
+            hashed_password (str): password hashed by bcrypt's hashpw
         Return:
-           created user object
+            Newly created User object
         """
-        new_user = User(email=email, hashed_password=hashed_password)
-        self._session.add(new_user)
+        user = User(email=email, hashed_password=hashed_password)
+        self._session.add(user)
         self._session.commit()
-        return new_user
+        return user
 
     def find_user_by(self, **kwargs):
         """
