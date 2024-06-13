@@ -24,3 +24,24 @@ def about():
 
 if __name__ == '__main__':
     app.run()
+    
+    
+def find_user_by(self, **kwargs):
+        """
+        Method to find user by input arguments
+        Args:
+           - kwargs: keyword argument
+        Return:
+           The first row found in the users table as filtered
+        Raises:
+           NoResultFound: If no rows match the query
+           InvalidRequestError: If there's an issue with the query
+        """
+        try:
+            session = self._session
+            user = session.query(User).filter_by(**kwargs).first()
+            if user is None:
+                raise NoResultFound
+            return user
+        except InvalidRequestError:
+            raise
