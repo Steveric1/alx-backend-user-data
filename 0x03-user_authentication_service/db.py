@@ -70,7 +70,7 @@ class DB:
         except InvalidRequestError:
             raise
 
-    def update_user(self, user_id, **kwargs):
+    def update_user(self, user_id, **kwargs) -> None:
         """
         Method to update user by arbitary keyword arguments
         Args:
