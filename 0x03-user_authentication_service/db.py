@@ -68,3 +68,30 @@ class DB:
             return user
         except InvalidRequestError:
             raise
+
+    def update_user(self, user_id, **kwargs):
+        """
+        Method to update user by arbitary keyword arguments
+        Args:
+           - kwargs: keyword arguments
+           - user_id: user id
+        Return:
+            returns None
+        Raise:
+           - ValueError: if an argument that does not correspond to a user
+           attribute is passed.
+        """
+        try:
+            session = self._session
+            user_update = self.find_user_by(id=user_id)
+
+            if user_update is not None:
+                for k, v in kwargs.items():
+                    if hasattr(user_update, k):
+                        setattr(user_update, k, v)
+                    else:
+                        raise ValueError
+            session.commit()
+            return None
+        except ValueError:
+            raise
