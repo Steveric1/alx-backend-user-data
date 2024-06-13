@@ -61,14 +61,14 @@ class DB:
            NoResultFound: If no rows match the query
            InvalidRequestError: If there's an issue with the query
         """
-        users = self._session.query(User)
-        for k, v in kwargs.items():
-            if k not in User.__dict__:
-                raise InvalidRequestError
-            for usr in users:
-                if getattr(usr, k) == v:
-                    return usr
-        raise NoResultFound
+        try:
+            session = self._session
+            user = session.query(User).filter_by(**kwargs).first()
+            if user is None:
+                raise NoResultFound
+            return user
+        except InvalidRequestError:
+            raise
 
     def update_user(self, user_id, **kwargs):
         """
