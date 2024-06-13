@@ -1,5 +1,7 @@
 #!/usr/bin/env pyhon3
-
+"""
+Definition of _hash_password function
+"""
 import bcrypt
 
 
