@@ -52,18 +52,20 @@ class DB:
 
     def find_user_by(self, **kwargs) -> User:
         """
-        Return a user who has an attribute matching the attributes passed
-        as arguments
+        Method to find user by input arguments
         Args:
-            attributes (dict): a dictionary of attributes to match the user
+           - kwargs: keyword argument
         Return:
-            matching user or raise error
+           The first row found in the users table as filtered
+        Raises:
+           NoResultFound: If no rows match the query
+           InvalidRequestError: If there's an issue with the query
         """
-        all_users = self._session.query(User)
+        users = self._session.query(User)
         for k, v in kwargs.items():
             if k not in User.__dict__:
                 raise InvalidRequestError
-            for usr in all_users:
+            for usr in users:
                 if getattr(usr, k) == v:
                     return usr
         raise NoResultFound
