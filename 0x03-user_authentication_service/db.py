@@ -83,16 +83,13 @@ class DB:
            attribute is passed.
         """
         try:
-            session = self._session
             user_update = self.find_user_by(id=user_id)
-
-            if user_update is not None:
-                for k, v in kwargs.items():
-                    if hasattr(user_update, k):
-                        setattr(user_update, k, v)
-                    else:
-                        raise ValueError
-            session.commit()
-            return None
-        except ValueError:
-            raise
+        except NoResultFound:
+            raise ValueError
+        for k, v in kwargs.items():
+            if hasattr(user_update, k):
+                setattr(user_update, k, v)
+            else:
+                raise ValueError
+        session = self._session
+        session.commit()
