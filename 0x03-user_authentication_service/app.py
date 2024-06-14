@@ -51,7 +51,7 @@ def login() -> str:
 
 
 @app.route("/sessions", methods=["DELETE"], strict_slashes=False)
-def logout() -> str:
+def logout():
     """logout function implementation"""
     session_id = request.cookies.get("session_id", None)
     user = AUTH._db.find_user_by(session_id=session_id)
