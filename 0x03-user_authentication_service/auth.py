@@ -6,6 +6,7 @@ import bcrypt
 from sqlalchemy.orm.exc import NoResultFound
 from db import DB
 from user import User
+from uuid import uuid4
 
 
 def _hash_password(password: str) -> bytes:
@@ -19,6 +20,15 @@ def _hash_password(password: str) -> bytes:
     """
     hashed_password = password.encode('utf-8')
     return bcrypt.hashpw(hashed_password, bcrypt.gensalt())
+
+
+def generate_uuid() -> str:
+    """
+    method that generate uuid
+    Return:
+      str(uuid4())
+    """
+    return str(uuid4())
 
 
 class Auth:
