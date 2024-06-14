@@ -57,15 +57,19 @@ class Auth:
 
     def valid_login(self, email: str, password: str) -> bool:
         """
-        method to implement login
+        Validate a user's login credentials and return True if they are correct
+        or False if they are not
         Args:
-           - email(str): user's email
-           - password(str): user's password
-        Return
-           Bool
+            email (str): user's email address
+            password (str): user's password
+        Return:
+            True if credentials are correct, else False
         """
         try:
             user = self._db.find_user_by(email=email)
         except NoResultFound:
             return False
-        return bcrypt.checkpw(password.encode('utf-8'), user.hashed_password)
+
+        user_password = user.hashed_password
+        passwd = password.encode("utf-8")
+        return bcrypt.checkpw(passwd, user_password)
