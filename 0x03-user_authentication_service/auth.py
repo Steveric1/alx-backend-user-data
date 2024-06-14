@@ -54,3 +54,20 @@ class Auth:
             return user
         except ValueError:
             raise
+
+    def valid_login(self, email: str, password: str) -> bool:
+        """
+        method to implement login
+        Args:
+           - email(str): user's email
+           - password(str): user's password
+        Return
+           Bool
+        """
+        try:
+            user = self._db.find_user_by(email=email)
+            if bcrypt.checkpw(password.encode('utf-8'), user.hashed_password):
+                return True
+        except Exception:
+            pass
+        return False
