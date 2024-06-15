@@ -1,4 +1,4 @@
-#!/usr/bin/env pyhon3
+#!/usr/bin/env python3
 """
 Definition of _hash_password function
 """
@@ -7,7 +7,7 @@ from sqlalchemy.orm.exc import NoResultFound
 from db import DB
 from user import User
 from uuid import uuid4
-from typing import Optional
+from typing import Optional, Union
 
 
 def _hash_password(password: str) -> bytes:
@@ -79,7 +79,7 @@ class Auth:
         except NoResultFound:
             return False
 
-    def create_session(self, email: str) -> str:
+    def create_session(self, email: str) -> Union[None, str]:
         """
         method to implement session
         Args:
